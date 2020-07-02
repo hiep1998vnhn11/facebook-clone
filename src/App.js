@@ -3,6 +3,9 @@ import './App.css';
 import FirebaseController from './firebase.js';
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import Home from './components/Home/Home';
+import Login from './components/Authenticate/Login';
+import Register from './components/Authenticate/Register'
+import MainProfile from './components/Profile'
 
 
 
@@ -47,7 +50,17 @@ function App() {
     <BrowserRouter>
       
       <Switch>
-        {/* <Route
+        
+        
+          <Route
+          exact
+          path="/"
+          render={() => (
+            <Home isLoggedIn={isLoggedIn} logout={handleLoggedOut} />
+          )}
+        />
+
+        <Route
           exact
           path="/login"
           render={() => (
@@ -59,19 +72,13 @@ function App() {
           exact
           path="/register"
           render={() => (
-            <Register isLoggedIn={isLoggedIn} login={handleLoggedIn} />
+            <Register isLoggedIn={isLoggedIn} />
           )}
-        />
-*/
+        /> 
 
-        <Route
-          exact
-          path="/"
-          render={() => (
-            <Home isLoggedIn={isLoggedIn} login={handleLoggedIn} />
-          )}
-        />
-/*
+
+     
+
         <Route
           exact
           path="/notification"
@@ -84,9 +91,9 @@ function App() {
           exact
           path="/user/:uid"
           render={() => (
-            <Login isLoggedIn={isLoggedIn} login={handleLoggedIn} />
+            <MainProfile isLoggedIn={isLoggedIn} login={handleLoggedIn} />
           )}
-        /> */}
+        /> 
           
       </Switch>
     </BrowserRouter>

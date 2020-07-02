@@ -28,10 +28,11 @@ function Navbar(props) {
 
     return (
         <Menu
+            theme="dark"
             mode="horizontal"
             defaultSelectedKeys={[1]}
             defaultOpenKeys={['sub1']}
-            style={{ width: '100%', height: '50px' }}
+            
         >
             <Menu.Item key="sub1" icon={<FacebookOutlined />} onClick={() => props.history.push("/")}>
 
@@ -58,7 +59,7 @@ function Navbar(props) {
 
             </Menu.Item>
             <Menu.Item key="sub10" icon={<NotificationOutlined />}>
-                
+
             </Menu.Item>
             <Menu.Item key="sub8" icon={<LogoutOutlined />} onClick={props.logout}>
 

@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Layout } from 'antd';
 import Navbar from '../Bar/Navbar';
-import SidebarLeft from '../Bar/SidebarLeft';
-import SidebarRight from '../Bar/SidebarRight';
 import FirebaseController from '../../firebase';
+import SidebarLeft from '../Bar/SidebarLeft';
 import { Switch, Route, withRouter } from 'react-router-dom';
 
 const { Content, Sider, Header } = Layout;
 
-function Home(props){
+function MainProfile(props){
     const [isLoggedIn, setIsLoggedIn] = useState(props.isLoggedIn);
 
     useEffect(() => {
@@ -38,22 +37,9 @@ function Home(props){
             >
                 <SidebarLeft isLoggedIn={isLoggedIn} logout={props.logout} />
             </Sider>
-            <Sider
-                width={200}
-                style={{
-                    overflow: 'auto',
-                    height: '100vh',
-                    width: '50%',
-                    position: 'fixed',
-                    right: 0,
-                    top: '10vh'
-                }}
-            >
-                <SidebarRight isLoggedIn={isLoggedIn} logout={props.logout} />
-            </Sider>
-
+           
         </Layout>
     );
 }
 
-export default withRouter(Home);
+export default withRouter(MainProfile);

@@ -14,7 +14,7 @@ class FirebaseController {
     }
 
     login(email, password){
-        return this.auth.signInWithEmailAndPassWord(email, password);
+        return this.auth.signInWithEmailAndPassword(email, password);
     }
 
     logout(){
@@ -23,10 +23,17 @@ class FirebaseController {
 
     async register(email, password, displayName, birthday){
         await this.auth.createUserWithEmailAndPassword(email, password);
+        await this.db.collection("users").doc(this.auth.currentUser.uid).set({
+            displayName: displayName,
+            uid: this.currentUser.uid,
+            avatarURL: null,
+            backgroundURL: null,
+            birthday: birthday,
+            following: [this.auth.currentUser.uid]
+        });
+
         return this.auth.currentUser.updateProfile({
             displayName: displayName,
-            photoUrl:
-                "https://i0.wp.com/www.mvhsoracle.com/wp-content/uploads/2018/08/default-avatar.jpg"
         });
     }
 
@@ -34,11 +41,20 @@ class FirebaseController {
     setupProfile(nickName, avatarURL, backgroundURL) {
         this.auth.currentUser.updateProfile({
         displayName: nickName,
-        photoURL: avatarURL
         }).then(function() {
         console.log("Update Success!");
         } ).catch(error => {
         console.log(error);
+        })
+        this.db.collection("users").doc(this.auth.currentUser.uid)
+            .update({
+                displayName: nickName,
+                avatarURL: avatarURL,
+                backgroundURL: backgroundURL
+        }).then(() => {
+            console.log("Setup profile success!");
+        }).catch(error => {
+            console.log(error);
         })
     }
 
